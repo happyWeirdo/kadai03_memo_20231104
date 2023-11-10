@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>WeddingReceptionMemo</title>
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+
+<body>
+    <h1>Happy Wedding</h1>
+
+    <main>
+        <!-- タブを活用して、見やすく内容を出しわけ -->
+        <div class="tab-1">
+            <label>
+                <input class="message-radio" type="radio" name="tab-1" checked>
+                ご来賓のお祝いメッセージ
+            </label>
+            <div>
+                <div class="input-area">
+                    <input id="title" type="text" placeholder="来賓名を入力">
+                    <textarea id="text" placeholder="お祝いのメッセージを入力"></textarea>
+                </div>
+        
+                <div class="button-area">
+                    <button id="tempo-save">一時保存</button>
+                    <button id="save">登録</button>
+                    <button id="edit">選択したものを編集</button>
+                    <!-- ここはラジオボタンを活用 -->
+                    <button id="remove-selected">選択したものを削除</button>
+                    <button id="clear">全て削除</button>
+                </div>
+
+                <ul id="list">
+                    <!-- ここに追加データが挿入される -->
+                </ul>
+            </div>
+        
+            <label>
+                <input class="guest-info-radio"type="radio" name="tab-1">
+                ご来賓情報管理
+            </label>
+            <div><div class="container">
+                <!-- my pc test -->
+        
+                <!-- 日付 今日がデフォルトで入力 -->
+                <div class="item">
+                    <input type="date" id="date">
+                    <script type="text/javascript">
+                        window.onload = function () {
+                          var date = new Date();
+                          date.setDate(date.getDate());
+                          var yyyy = date.getFullYear();
+                          var mm = ("0" + (date.getMonth() + 1)).slice(-2);
+                          var dd = ("0" + date.getDate()).slice(-2);
+                          document.getElementById("date").value = yyyy + '-' + mm + '-' + dd;
+                        }
+                      </script>
+                </div>
+        
+                <!-- カテゴリ名 -->
+                <div class="item">
+                    <select name="category" id="category">
+                        <option value="none">【カテゴリ】</option>
+                        <option value="food1">食費(家庭)</option>
+                        <option value="food2">食費(外食)</option>
+                        <option value="grocery">日用品</option>
+                        <option value="apperel">被服費</option>
+                        <option value="beauty">美容費</option>
+                        <option value="relation">交際費</option>
+                        <option value="education">教育費</option>
+                        <option value="medical">医療費</option>
+                        <option value="elecwater">光熱水道費</option>
+                        <option value="mobile">通信費</option>
+                        <option value="traffic">交通費</option>
+                        <option value="others">雑費</option>
+                    </select>
+                </div>
+        
+                <!-- 商品 -->
+                <div class="item">
+                    <input type="text" id="details" placeholder="詳細">
+                </div>
+        
+                <!-- 金額 -->
+                <div class="item">
+                    <input type="text" id="money" placeholder="金額" class="sakai-digit sakai-digit-0" style="text-align: right">
+                    <!-- <input type="text" onblur="kanmaChange(this);" pattern="\d*" style="text-align: right"> -->
+                </div>
+        
+        
+                <!-- Saveボタン -->
+                <div class="item">
+                    <p>.</p>
+                    <button id="save">Save</button>
+                </div>
+        
+                <!-- Clear 削除ボタン -->
+                <div class="item">
+                    <p>.</p>
+                    <button id="clear">Clear</button>
+                </div>
+            </div>  
+        
+            <!-- 追加したコメント表示部分 -->
+            <p id="comment"></p>
+        
+            <!-- テーブル -->
+            <div class="container2">
+                <!-- The table where the data will be displayed -->
+                <table id="list">
+                    <tr>
+                        <th>日付</th>
+                        <th>カテゴリ</th>
+                        <th>詳細</th>
+                        <th>金額</th>
+                    </tr>
+                    <!-- The rows of data will be added here by the JavaScript code -->
+                </table>
+        
+            </div></div>
+        
+        </div>
+        
+        <!-- <div class="container">
+          <div>
+              再生ボタン
+              <button id="play" class="btn btn-primary">再生</button>
+              #play
+          </div>
+          <div>
+              音量ボタン
+              <button id="volume-up" class="btn btn-success"><i class="fas fa-caret-up"></i></button>
+              #volume-up
+              <button id="volume-down" class="btn btn-success"><i class="fas fa-caret-down"></i></button>
+              #volume-down
+              ミュートボタン
+              <button id="mute" class="btn btn-warning "><i class="fas fa-volume-mute"></i></button>
+              .btn btn-warning
+          </div> -->
+        <!-- </div> -->
+        <!-- .container -->
+    </main>
+    
+
+    <footer>
+        From All G's Academy Members
+    </footer>
+
+    <!-- 以下にjsを書いていきます -->
+    <script>
+        'use strict';
+        $("main").slideDown(2000);
+
+        //1.tempo-save クリックイベント
+        $("#tempo-save").on("click", function() {
+            const key = $("#title").val();
+            const value = $("#text").val();
+            // リフレッシュ時点でもデータ保持
+            // キーとバリューをセットで配列にして、特定するロジックを作って、キーをよびに行くときに出てくるようにする
+
+
+            // localStorage.setItem(key, value);
+            // const html = `
+            //   <li>
+            //     <p>${key}</p>
+            //     <p>${value}</p>
+            //   </li>
+            // `;
+            // $("#list ").append(html);
+        });
+
+        //2.save クリックイベント
+        $("#save").on("click", function() {
+            const key = $("#title").val();
+            const value = $("#text").val();
+
+            localStorage.setItem(key, value);
+            const html = `
+              <li>
+                <p>${key}</p>
+                <p>${value}</p>
+              </li>
+            `;
+            $("#list ").append(html);
+            $("#title").val("");
+            $("#text").val("");
+        });
+
+        //5.clear クリックイベント
+        $("#clear").on("click", function() {
+            localStorage.clear();
+            $("#list").empty();
+            $("#title").val("");
+            $("#text").val("");
+        });
+
+
+        //6.ページ読み込み：保存データ取得表示
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            const value = localStorage.getItem(key);
+            const html = `
+            <li>
+              <p>${key}</p>
+              <p>${value}</p>
+            </li>
+          `;
+            $("#list").append(html);
+        }
+
+        // // BGMの要素
+        // const music = new Audio('musics/music.mp3');
+        // const play = document.getElementById('play');
+        // const volumeUp = document.getElementById('volume-up');
+        // const volumeDown = document.getElementById('volume-down');
+        // const mute = document.getElementById('mute');
+
+        // // 再生ボタン
+        // play.addEventListener('click', function() {
+        //     if (!music.paused) {
+        //         play.innerHTML = "再生 ";
+        //         music.pause();
+        //     } else {
+        //         play.innerHTML = "停止 ";
+        //         music.play();
+        //     }
+        // });
+
+        // // 音量ボタン
+        // volumeUp.addEventListener('click', function() {
+        //     const volume = music.volume;
+        //     if (volume < 1) {
+        //         music.volume = (volume * 10 + 1) / 10;
+        //     }
+        // });
+        // volumeDown.addEventListener('click', function() {
+        //     const volume = music.volume;
+        //     if (volume > 0) {
+        //         music.volume = (volume * 10 - 1) / 10;
+        //     }
+        // });
+
+        // // ミュートボタン
+        // mute.addEventListener('click', function() {
+        //     if (music.muted) {
+        //         music.muted = false;
+        //         mute.innerHTML = '<i class="fas fa-volume-mute ">';
+        //     } else {
+        //         music.muted = true;
+        //         mute.innerHTML = '<i class="fas fa-volume-up "></i>';
+        //     }
+        // });
+
+        // ループ再生の設定
+        // music.loop = true;
+
+        //カテゴリのvalueと日本語のマッピング
+const categoryMap = {
+    "none": "【カテゴリ】",
+    "food1": "食費(家庭)",
+    "food2": "食費(外食)",
+    "grocery": "日用品",
+    "apperel": "被服費",
+    "beauty": "美容費",
+    "relation": "交際費",
+    "education": "教育費",
+    "medical": "医療費",
+    "elecwater": "光熱水道費",
+    "mobile": "通信費",
+    "traffic": "交通費",
+    "others": "雑費"
+  };
+
+// Saveボタンを押して入力値をローカルストレージに保存
+$("#save").on("click", function() {
+    const date = $("#date").val();
+    const categoryValue = $("#category").val();
+    const categoryLabel = categoryMap[categoryValue];
+    const details = $("#details").val();
+    let money = $("#money").val().replace(/,/g, '');
+    money = parseInt(money);
+
+    if (!date || !categoryValue || !details || money === '') {
+        alert("全てのフィールドを埋めてください");
+        return;
+    }
+
+    if (isNaN(money)) {
+        alert("金額フィールドには数値を入力してください");
+        return;
+    }
+
+    money = money.toLocaleString();
+
+    const entry = {
+        date: date,
+        category: categoryLabel,
+        details: details,
+        money: money,
+    };
+
+    let dateTimeKey = date + "-" + new Date().getTime();
+    localStorage.setItem(dateTimeKey, JSON.stringify(entry));
+
+    const html = `
+        <tr>
+            <th>${date}</th>
+            <td>${categoryLabel}</td>
+            <td>${details}</td>
+            <td>${money}</td>
+        </tr>
+    `;
+    $("#list").append(html);
+
+    // フォームをクリアする
+    $("#date").val("");
+    $("#category").val("");
+    $("#details").val("");
+    $("#money").val("");
+
+    // 現在の合計行を削除
+    $("tr:contains('合計')").remove();
+    // 新しい合計を計算して追加
+    calculateTotal();
+    // 新しいコメントを表示
+    displayComment();
+});
+
+
+
+// ローカルストレージに保存されたデータの表示
+$(document).ready(function() {
+    // ローカルストレージからデータを取得し、各データをテーブルに追加
+    for(let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        const value = JSON.parse(localStorage.getItem(key));
+
+        // 値が正しい形式であることを確認
+        if (value && value.date && value.category && value.details && value.money) {
+            // データ表示時に3桁区切りのコンマを追加
+            const formattedMoney = parseInt(value.money).toLocaleString();
+
+            // HTMLテーブルへのデータの追加
+            const html = `
+                <tr>
+                    <th>${value.date}</th>
+                    <td>${value.category}</td>
+                    <td>${value.details}</td>
+                    <td style="text-align: right;">${formattedMoney}</td>
+                </tr>
+            `;
+            $("#list").append(html);
+        }
+    }
+});
+
+
+// 金額入力欄がフォーカスを失ったときに発火するイベント
+$("#money").on("blur", function() {
+    // 入力欄の値を取得し、整数に変換
+    let moneyValue = parseInt($(this).val());
+
+    // 値がNaNでないことを確認します（つまり、値が数字であることを確認します）
+    if (!isNaN(moneyValue)) {
+        // 値を3桁区切りにフォーマットし、入力欄に戻す
+        $(this).val(moneyValue.toLocaleString());
+    }
+});
+
+
+// 全削除イベント
+$("#clear").on("click", function() {
+    localStorage.clear();
+    $("#list").empty();
+})
+
+
+
+// 金額の合計を計算して表示
+function calculateTotal() {
+    let total = 0;
+    for(let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        const value = JSON.parse(localStorage.getItem(key));
+
+        // valueがnullやundefined、またはvalue.moneyがundefinedであればスキップ
+        if (!value || !value.money) {
+            continue;
+        }
+
+        const moneyValue = parseInt(value.money.replace(/,/g, ''));
+
+        // moneyValueがNaNでないことを確認します。
+        if (isNaN(moneyValue)) {
+            console.error(`Invalid number in localStorage: ${key}: `, value);
+        } else {
+            total += moneyValue;
+        }
+    }
+
+    // ここでも、合計金額を表示する際にtoLocaleStringメソッドを使用してコンマ区切りを追加します。
+    total = total.toLocaleString();
+
+    // 合計金額をテーブルに追加
+    const html = `
+        <tr>
+            <th colspan="3">合計</th>
+            <td style="text-align: right;">${total}</td>
+        </tr>
+    `;
+    $("#list").append(html);
+}
+
+
+
+// 保存ボタンをクリックしたら、合計を再計算し、コメントを表示
+$("#save").on("click", function() {
+    // 現在の合計行を削除
+    $("tr:contains('合計')").remove();
+    // 新しい合計を計算して追加
+    calculateTotal();
+    // 新しいコメントを表示
+    displayComment();
+});
+
+// ページ読み込み時に初めて合計を計算し、コメントを表示
+$(document).ready(function() {
+    $("tr:contains('合計')").remove();
+    calculateTotal();
+    displayComment();
+});
+    </script>
+</body>
+
+</html>

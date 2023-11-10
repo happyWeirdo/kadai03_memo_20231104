@@ -1,0 +1,228 @@
+* {
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 50px;
+    font-style: italic;
+    text-align: center;
+    font-weight: bold;
+    color: rgb(241, 85, 158);
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: rgb(240, 203, 218);
+    border-bottom: 1px solid #ccc;
+}
+
+.input-area {
+    width: 90%;
+    margin: 5px auto 30px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+input {
+    width: 100%;
+    display: block;
+    padding: 20px 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    font-size: 20px;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    resize: none;
+    font-size: 20px;
+}
+
+.button-area {
+   
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-area button {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 48%;
+    height: 60px;
+    text-align: center;
+    display: block;
+    font-size: 20px;
+    color:rgb(241, 85, 158);
+    background-color: rgb(240, 203, 218);
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+footer {
+    margin-top: 30px;
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+    font-size: 20px;
+    font-style: italic;
+    color: rgb(241, 85, 158);
+    background-color: rgb(240, 203, 218);
+}
+
+#list {
+    width: 90%;
+    margin: 50px auto;
+}
+
+#list li {
+    font-size: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 20px
+}
+
+#list li p {
+    margin: 10px 0;
+}
+
+body {
+    text-align: center;
+}
+
+.tab-1 {
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 5px;
+    max-width: 100%;
+}
+
+.tab-1 > label {
+    flex: 1 1;
+    order: -1;
+    opacity: .5;
+    min-width: 70px;
+    padding: .6em 1em;
+    border-radius: 5px 5px 0 0;
+    background-color: rgb(241, 85, 158);
+    color: #fff;
+    font-size: 1.5em;
+    text-align: center;
+    cursor: pointer;
+}
+
+.tab-1 > label:hover {
+    opacity: .8;
+}
+
+.tab-1 .message-radio {
+    display: none;
+}
+
+.tab-1 .guest-info-radio {
+    display: none;
+}
+
+.tab-1 > div {
+    display: none;
+    width: 100%;
+    padding: 1.5em 1em;
+    background-color: #fff;
+}
+
+.tab-1 label:has(:checked) {
+    opacity: 1;
+}
+
+.tab-1 label:has(:checked) + div {
+    display: block;
+}
+
+
+/* #play {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.container {
+    margin-top: 80px;
+} */
+
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+
+.container2 {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    margin-top: 40px;
+    border-radius: 10px; /* 角を少し丸くする */
+}
+
+.item p {
+    margin-bottom: 5px;
+}
+
+
+input[type='text'], select, input[type='date'] {
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    height: 50px;
+    color: white;
+    background-color: rgb(241, 85, 158);
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+#comment {
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    color: darkred;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff; /* テーブルの背景色を白に変更 */
+}
+
+table#list td:nth-child(4) {
+    text-align: right;
+}
+
+
+table, th, td {
+    border: 1px solid #333;
+    padding: 10px;
+}
+
+th, td {
+    text-align: center;
+}
